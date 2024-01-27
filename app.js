@@ -11,6 +11,7 @@ app.use(cors());
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
 
+app.get({msg:"I am running"})
 app.use("/user", userRoute);
 
 app.listen(process.env.PORT , ()=>{
