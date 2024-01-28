@@ -10,7 +10,7 @@ router.get("/signup" , (req , res)=>{
 })
 
 router.post("/signup" , async(req,res)=>{
-    let {name , rollNo , email , password ,branch} = req.body;
+    let {name , rollNo , email , password} = req.body;
     let user = await USER.findOne({email});
     if(user){
         return res.status(403).json({msg:"Email already exist" , status:false});
@@ -20,6 +20,7 @@ router.post("/signup" , async(req,res)=>{
     if(user){
         return res.status(403).json({msg:"RollNo already exist" , status:false});
     }
+    const branch = rollNo.charAt(5) + rollNo.charAt(6)
     password = bcrypt.hashSync(password , salt);
     user = await USER.create({name, rollNo , email , password, branch})
     if(user){
