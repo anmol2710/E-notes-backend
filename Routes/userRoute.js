@@ -5,6 +5,10 @@ const router = express.Router();
 
 const salt = bcrypt.genSaltSync(10);
 
+router.get("/signup" , (req , res)=>{
+    return res.json({msg:"Server is running Signup"})
+})
+
 router.post("/signup" , async(req,res)=>{
     let {name , rollNo , email , password ,branch} = req.body;
     let user = await USER.findOne({email});
@@ -25,6 +29,10 @@ router.post("/signup" , async(req,res)=>{
     else{
         return res.status(500).json({msg:"Internal Server Error", status:false})
     }   
+})
+
+router.get("/login" , (req , res)=>{
+    return res.json({msg:"Server is running Login"})
 })
 
 router.post("/login" , async(req,res)=>{
