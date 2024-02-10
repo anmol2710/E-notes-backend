@@ -44,11 +44,11 @@ router.post("/login" , async(req,res)=>{
             return res.status(201).json({msg:user._id , status:true})
         }
         else{
-            return res.status(401).json({msg:"Invalid Password" , status:false})
+            return res.json({msg:"Invalid Password" , status:false})
         }
     }   
     else{
-        return res.status(404).json({msg:"User Not exist" , status:false})
+        return res.json({msg:"User Not exist" , status:false})
     }
 })
 
