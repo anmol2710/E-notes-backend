@@ -13,22 +13,22 @@ router.post("/signup" , async(req,res)=>{
     let {name , rollNo , email , password} = req.body;
     let user = await USER.findOne({email});
     if(user){
-        return res.status(403).json({msg:"Email already exist" , status:false});
+        return res.json({msg:"Email already exist" , status:false});
     }
 
     user = await USER.findOne({rollNo});
     if(user){
-        return res.status(403).json({msg:"RollNo already exist" , status:false});
+        return res.json({msg:"RollNo already exist" , status:false});
     }
     const branch = rollNo.charAt(5) + rollNo.charAt(6)
     password = bcrypt.hashSync(password , salt);
     user = await USER.create({name, rollNo , email , password, branch})
     if(user){
         console.log(user)
-        return res.status(201).json({msg:user._id , status:true})
+        return res.json({msg:user._id , status:true})
     }
     else{
-        return res.status(500).json({msg:"Internal Server Error", status:false})
+        return res.json({msg:"Internal Server Error", status:false})
     }   
 })
 
@@ -41,7 +41,7 @@ router.post("/login" , async(req,res)=>{
     let user = await USER.findOne({rollNo});
     if(user){
         if(bcrypt.compareSync(password , user.password)){
-            return res.status(201).json({msg:user._id , status:true})
+            return res.json({msg:user._id , status:true})
         }
         else{
             return res.json({msg:"Invalid Password" , status:false})
