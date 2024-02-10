@@ -25,7 +25,7 @@ router.post("/signup" , async(req,res)=>{
     user = await USER.create({name, rollNo , email , password, branch})
     if(user){
         console.log(user)
-        return res.status(201).json({msg:user , status:true})
+        return res.status(201).json({msg:user._id , status:true})
     }
     else{
         return res.status(500).json({msg:"Internal Server Error", status:false})
@@ -41,7 +41,7 @@ router.post("/login" , async(req,res)=>{
     let user = await USER.findOne({rollNo});
     if(user){
         if(bcrypt.compareSync(password , user.password)){
-            return res.status(201).json({msg:user , status:true})
+            return res.status(201).json({msg:user._id , status:true})
         }
         else{
             return res.status(401).json({msg:"Invalid Password" , status:false})
